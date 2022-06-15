@@ -9,3 +9,14 @@ class Post(models.Model):
     intro = models.TextField()
     body = models.TextField() #文字を打つことができるフィールド
     posted_date = models.DateField(auto_now_add=True) #日付を打つことができるフィールド（auto_now_addはリアルタイムを自動で入力）
+
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
+    #ForeignKey:1対多の関係の時に使う
+    #on_delete:本文を消すと他のemail情報とかname情報とかも全て消すようになる、、、みたいな
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    body = models.TextField()
+    posted_date = models.DateTimeField(auto_now_add=True)
